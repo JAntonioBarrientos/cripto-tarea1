@@ -1,6 +1,10 @@
 import os
 from utils_cipher import UtilsCipher
+from mono_alf_cipher import CifradoMonoalfabeticoAleatorio
+from vigenere_cipher import CifradoVigenere
 from affine_cipher import CifradoAfin
+from hill_cipher import HillCipher
+import random
 
 def leer_archivo(ruta_archivo):
     if not os.path.exists(ruta_archivo):
@@ -14,25 +18,36 @@ def guardar_texto_en_archivo(texto, ruta_salida):
         file.write(texto)
 
 def main():
-    # Ruta de los archivos de entrada y salida
-    ruta_archivo_entrada = 'Texto1.txt'
-    ruta_archivo_salida = 'frecuencias.txt'
+
+    ruta_archivo_entrada = 'docs/Texto1.txt'
+
+    texto = leer_archivo(ruta_archivo_entrada)
+
+    ruta_archivo_salida = 'docs/Texto1_cifrado_afin.txt'
 
     
-    # Ejemplo de uso
-    texto = "Éste es un texto con signos de puntuación, acentos y espacios."
-    a, b = 1, 2
-    bandera = 'es'  # Usar alfabeto español con Ñ
+    # Matriz clave 2x2 para el cifrado de Hill
+    key_matrix = [[3, 3], [2, 5]]
+
+    # Crear una instancia del cifrado de Hill
+    cipher = HillCipher(key_matrix)
+
+    # Texto claro
+    plaintext = "HELLO"
 
     # Cifrar
-    texto_cifrado = CifradoAfin.cifrar(texto, a, b, bandera)
-    print("Texto Cifrado:")
-    print(texto_cifrado)
+    ciphertext = cipher.encrypt(plaintext)
+    print(f"Texto cifrado: {ciphertext}")
 
     # Descifrar
-    texto_descifrado = CifradoAfin.decifrar(texto_cifrado, a, b, bandera)
-    print("Texto Descifrado:")
-    print(texto_descifrado)
+    decrypted_text = cipher.decrypt(ciphertext)
+
+    guardar_texto_en_archivo(ciphertext, ruta_archivo_salida)
+
+    print(f"Texto descifrado: {decrypted_text}")
+
+    
+
 
 if __name__ == "__main__":
     main()
