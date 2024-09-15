@@ -88,3 +88,49 @@ class UtilsCipher:
         return table
 
 
+    @staticmethod
+    def preprocesar_texto(texto, bandera):
+        """
+        Preprocesa el texto eliminando acentos, signos de puntuación, espacios, y convierte a mayúsculas.
+        En caso de 'en', reemplaza 'Ñ' por 'N'.
+        
+        :param texto: El texto a preprocesar.
+        :param bandera: 'es' para español (alfabeto con Ñ), 'en' para inglés (sin Ñ).
+        :return: El texto preprocesado listo para cifrar/descifrar.
+        """
+        # Elimina acentos y normaliza
+        texto = CifradoAfin.eliminar_acentos(texto, bandera)
+        
+        # Elimina signos de puntuación y espacios
+        texto = ''.join(filter(str.isalpha, texto)).upper()
+        
+        # Si se usa el alfabeto en inglés, convertir Ñ a N
+        if bandera == 'en':
+            texto = texto.replace('Ñ', 'N')
+        
+        return texto
+
+    @staticmethod
+    def eliminar_acentos(texto, bandera):
+        """
+        Función auxiliar que elimina acentos de las letras. 
+        Si la bandera es 'es', preserva la 'Ñ'.
+        
+        :param texto: El texto a procesar.
+        :param bandera: 'es' para español, 'en' para inglés.
+        :return: Texto sin acentos.
+        """
+        # Si estamos trabajando con español, preservamos la Ñ
+        if bandera == 'es':
+            texto = texto.replace('Ñ', '__TEMP_N__').replace('ñ', '__temp_n__')
+            
+        # Elimina los acentos de las demás letras
+        texto = ''.join((c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn'))
+        
+        # Restaurar la Ñ
+        if bandera == 'es':
+            texto = texto.replace('__TEMP_N__', 'Ñ').replace('__temp_n__', 'ñ')
+            
+        return texto
+
+
