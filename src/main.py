@@ -18,18 +18,21 @@ def guardar_texto_en_archivo(texto, ruta_salida):
         file.write(texto)
 
 def main():
-    ruta_archivo_entrada = 'docs/Texto1_cifrado_afin.txt'
+    ruta_archivo_entrada = 'docs/Texto1_cifrado_hill.txt'
 
     texto = leer_archivo(ruta_archivo_entrada)
 
-    ruta_archivo_salida = 'docs/Texto1_descifrado_afin.txt'
+    ruta_archivo_salida = 'docs/Texto1_descifrado_hill.txt'
 
-    a = 11
-    b = 8
+    # Matriz clave 2x2 para el cifrado de Hill
+    key_matrix = [[5, 7], [11, 3]]
 
-    texto_descifrado = CifradoAfin.descifrar(texto, a, b, 'es')
+    # Crear una instancia del cifrado de Hill
+    cipher = HillCipher(key_matrix)
 
-    guardar_texto_en_archivo(texto_descifrado, ruta_archivo_salida)
+    # Descifrar
+    plaintext = cipher.decrypt(texto)
+    guardar_texto_en_archivo(plaintext, ruta_archivo_salida)
 
 
 if __name__ == "__main__":
