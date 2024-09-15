@@ -23,11 +23,11 @@ def main():
 
     texto = leer_archivo(ruta_archivo_entrada)
 
-    ruta_archivo_salida = 'docs/Texto1_cifrado_afin.txt'
+    ruta_archivo_salida = 'docs/Texto1_cifrado_hill.txt'
 
     
     # Matriz clave 2x2 para el cifrado de Hill
-    key_matrix = [[3, 3], [2, 5]]
+    key_matrix = [[5, 7], [11, 3]]
 
     # Crear una instancia del cifrado de Hill
     cipher = HillCipher(key_matrix)
