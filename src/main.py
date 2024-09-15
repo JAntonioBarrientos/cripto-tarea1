@@ -4,6 +4,7 @@ from mono_alf_cipher import CifradoMonoalfabeticoAleatorio
 from vigenere_cipher import CifradoVigenere
 from affine_cipher import CifradoAfin
 from hill_cipher import HillCipher
+from playfair_cipher import PlayfairCipher
 import random
 
 def leer_archivo(ruta_archivo):
@@ -18,20 +19,15 @@ def guardar_texto_en_archivo(texto, ruta_salida):
         file.write(texto)
 
 def main():
-    ruta_archivo_entrada = 'docs/Texto1_cifrado_hill.txt'
+    ruta_archivo_entrada = 'docs/Texto1_cifrado_playfair.txt'
 
     texto = leer_archivo(ruta_archivo_entrada)
 
-    ruta_archivo_salida = 'docs/Texto1_descifrado_hill.txt'
+    ruta_archivo_salida = 'docs/Texto1_descifrado_playfair.txt'
 
-    # Matriz clave 2x2 para el cifrado de Hill
-    key_matrix = [[5, 7], [11, 3]]
+    cipher = PlayfairCipher()
+    plaintext = cipher.descifrar(texto)
 
-    # Crear una instancia del cifrado de Hill
-    cipher = HillCipher(key_matrix)
-
-    # Descifrar
-    plaintext = cipher.decrypt(texto)
     guardar_texto_en_archivo(plaintext, ruta_archivo_salida)
 
 

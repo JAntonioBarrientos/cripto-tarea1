@@ -121,3 +121,38 @@ def main():
     plaintext = cipher.decrypt(texto)
     guardar_texto_en_archivo(plaintext, ruta_archivo_salida)
 ```
+
+
+## Cifrado Playfair
+
+Para ejecutar el cifrado Playfair se necesita escribir el siguiente codigo.
+
+```python
+def main():
+    ruta_archivo_entrada = 'docs/Texto1.txt'
+
+    texto = leer_archivo(ruta_archivo_entrada)
+
+    ruta_archivo_salida = 'docs/Texto1_cifrado_playfair.txt'
+
+    cipher = PlayfairCipher()
+    criptotexto = cipher.cifrar(texto)
+
+    guardar_texto_en_archivo(criptotexto, ruta_archivo_salida)
+```
+
+Para descifrarlo se necesita escribir el siguiente codigo.
+
+```python
+def main():
+    ruta_archivo_entrada = 'docs/Texto1_cifrado_playfair.txt'
+
+    texto = leer_archivo(ruta_archivo_entrada)
+
+    ruta_archivo_salida = 'docs/Texto1_descifrado_playfair.txt'
+
+    cipher = PlayfairCipher()
+    plaintext = cipher.descifrar(texto)
+
+    guardar_texto_en_archivo(plaintext, ruta_archivo_salida)
+```
